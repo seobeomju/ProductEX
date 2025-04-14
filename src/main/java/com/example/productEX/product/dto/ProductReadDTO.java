@@ -1,8 +1,11 @@
 package com.example.productEX.product.dto;
 
+import com.example.productEX.product.entities.ProductEntity;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class ProductReadDTO {
@@ -11,13 +14,13 @@ public class ProductReadDTO {
     private String pname;
     private String pdesc;
     private String seller;
-    private List<String> imNames;
+    private List<String> imageNames;
 
-    public ProductReadDTO(Long pno, String pname, String pdesc, String seller, List<String> imNames) {
-        this.pno = pno;
-        this.pname = pname;
-        this.pdesc = pdesc;
-        this.seller = seller;
-        this.imNames = imNames;
+    public ProductReadDTO(ProductEntity entity) {
+        this.pno = entity.getPno();
+        this.pname = entity.getPname();
+        this.pdesc = entity.getPdesc();
+        this.seller = entity.getSeller();
+        this.imageNames = entity.getImages().stream().map(image -> image.getImageName()).collect(Collectors.toList());
     }
 }
