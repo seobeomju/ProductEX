@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name="tbl_product")
 @Getter
-@ToString
+@ToString (exclude = "images")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

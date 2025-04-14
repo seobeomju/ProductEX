@@ -10,7 +10,6 @@ public class ProductAddDTO {
     private int price;
     private String pdesc;
     private String seller;
-    private String imageName;
 
-    private List<String> images;
+    private List<String> imageNames;
 }
