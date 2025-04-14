@@ -28,6 +28,7 @@ public class ProductEntity {
 
     private String seller;
 
+
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
             name = "tbl_product_img",

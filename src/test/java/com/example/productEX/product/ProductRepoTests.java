@@ -6,6 +6,9 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @SpringBootTest
 @Log4j2
@@ -35,5 +38,40 @@ public class ProductRepoTests {
 
         }
 
+    }
+
+    @Test
+    public void testList1() {
+        Pageable pageable = PageRequest.of(0, 10);  // 1페이지, 10개씩
+        Page<Object[]> result = productRepository.list1(pageable);
+
+        result.getContent().forEach(arr -> {
+            System.out.println("pno: " + arr[0]);
+            System.out.println("pname: " + arr[1]);
+            System.out.println("price: " + arr[2]);
+            System.out.println("imgName: " + arr[3]);
+            System.out.println("-------------------");
+        });
+    }
+
+    @Test
+    public void testSelectOne() {
+
+        Long pno = 1L;
+
+        ProductEntity product = productRepository.selectOne(pno);
+
+        log.info("===== 상품 정보 =====");
+        log.info("상품 번호: {}", product.getPno());
+        log.info("상품명: {}", product.getPname());
+        log.info("가격: {}", product.getPrice());
+        log.info("설명: {}", product.getPdesc());
+        log.info("판매자: {}", product.getSeller());
+
+        log.info("===== 이미지 리스트 =====");
+        product.getImages().forEach(img -> {
+            log.info("이미지 파일명: {}", img.getImageName());
+            log.info("순서: {}", img.getOrd());
+        });
     }
 }
